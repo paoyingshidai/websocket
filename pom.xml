@@ -69,5 +69,6 @@
 
 	<modules>
 		<module>websocket-start</module>
+		<module>websocket-stomp</module>
 	</modules>
 </project>
