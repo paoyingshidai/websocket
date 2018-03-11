@@ -2,6 +2,7 @@ package com.michael.stomp.controller;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
@@ -27,5 +28,11 @@ public class WebSocketController {
     	log.info("XXX用户订阅了我。。。");
         return new ServerMessage("感谢你订阅了我。。。");
     }
+    
+    @MessageMapping("/message")  
+    @SendToUser("/message")  
+    public ClientMessage userMessage(ClientMessage userMessage) throws Exception {  
+        return userMessage;  
+    }  
 
 }

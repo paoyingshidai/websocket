@@ -33,9 +33,13 @@
             // 连接成功时（服务器响应 CONNECTED 帧）的回调方法
             setMessageInnerHTML("连接成功");
             stompClient.subscribe('/app/subscribeTest', function (response) {
-                setMessageInnerHTML("已成功订阅/app/subscribeTest");
                 var returnData = JSON.parse(response.body);
                 setMessageInnerHTML("/app/subscribeTest 你接收到的消息为:" + returnData.responseMessage);
+            });
+            // 私人订制消息 P2P
+            stompClient.subscribe('/user/2/message', function (response) {
+                var returnData = JSON.parse(response.body);
+                setMessageInnerHTML("/user/1/message 私人消息 : " + returnData.responseMessage);
             });
         },
         function errorCallBack(error) {
@@ -55,7 +59,6 @@
     //订阅消息
     function subscribe1() {
         stompClient.subscribe('/topic/subscribeTest', function (response) {
-            setMessageInnerHTML("已成功订阅/topic/subscribeTest");
             var returnData = JSON.parse(response.body);
             setMessageInnerHTML("/topic/subscribeTest 你接收到的消息为:" + returnData.responseMessage);
         });
@@ -64,7 +67,6 @@
     //订阅消息
     function subscribe2() {
         stompClient.subscribe('/topic/sendTest', function (response) {
-            setMessageInnerHTML("已成功订阅/topic/sendTest");
             var returnData = JSON.parse(response.body);
             setMessageInnerHTML("/topic/sendTest 你接收到的消息为:" + returnData.responseMessage);
         });
